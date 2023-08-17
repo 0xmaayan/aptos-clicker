@@ -1,0 +1,46 @@
+lockfileVersion: 5.4
+
+specifiers:
+  '@tanstack/react-query': ^4.32.6
+  aptos-cli: git+https://github.com/BriungRi/aptos-cli.git
+
+dependencies:
+  '@tanstack/react-query': 4.32.6
+
+devDependencies:
+  aptos-cli: github.com/BriungRi/aptos-cli/581a64246dba082c6f22d044ab43a96381722cb0
+
+packages:
+
+  /@tanstack/query-core/4.32.6:
+    resolution: {integrity: sha512-YVB+mVWENQwPyv+40qO7flMgKZ0uI41Ph7qXC2Zf1ft5AIGfnXnMZyifB2ghhZ27u+5wm5mlzO4Y6lwwadzxCA==}
+    dev: false
+
+  /@tanstack/react-query/4.32.6:
+    resolution: {integrity: sha512-AITu/IKJJJXsHHeXNBy5bclu12t08usMCY0vFC2dh9SP/w6JAk5U9GwfjOIPj3p+ATADZvxQPe8UiCtMLNeQbg==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+      react-native: '*'
+    peerDependenciesMeta:
+      react-dom:
+        optional: true
+      react-native:
+        optional: true
+    dependencies:
+      '@tanstack/query-core': 4.32.6
+      use-sync-external-store: 1.2.0
+    dev: false
+
+  /use-sync-external-store/1.2.0:
+    resolution: {integrity: sha512-eEgnFxGQ1Ife9bzYs6VLi8/4X6CObHMw9Qr9tPY43iKwsPw8xE8+EFsf/2cFZ5S3esXgpWgtSCtLNS41F+sKPA==}
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dev: false
+
+  github.com/BriungRi/aptos-cli/581a64246dba082c6f22d044ab43a96381722cb0:
+    resolution: {tarball: https://codeload.github.com/BriungRi/aptos-cli/tar.gz/581a64246dba082c6f22d044ab43a96381722cb0}
+    name: '@brian-aptos/aptos-cli'
+    version: 2.0.2
+    hasBin: true
+    dev: true
