@@ -11,8 +11,5 @@
   },
   "devDependencies": {
     "aptos-cli": "git+https://github.com/BriungRi/aptos-cli.git"
-  },
-  "dependencies": {
-    "@tanstack/react-query": "^4.32.6"
   }
 }
