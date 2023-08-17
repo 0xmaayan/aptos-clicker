@@ -50,6 +50,32 @@ function App() {
       refetchInterval: 5000,
     }
   );
+  useQuery(
+    ["click"],
+    async () => {
+      if (balance.data && balance.data > 0n) {
+        const payload = createEntryPayload(ABI, {
+          function: "click",
+          type_arguments: [],
+          arguments: [],
+        }).rawPayload;
+        await provider.aptosClient.signAndSubmitTransaction(
+          internalAccount,
+          await provider.aptosClient.generateTransaction(
+            internalAccount.address(),
+            payload,
+            {
+              max_gas_amount: "10000",
+              gas_unit_price: "100",
+            }
+          )
+        );
+      }
+    },
+    {
+      refetchInterval: 500,
+    }
+  );
   return (
     <>
       <div className="navbar">
