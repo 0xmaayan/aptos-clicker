@@ -10,7 +10,6 @@ import { ABI } from "./abi";
 import { COIN_ABI } from "./coin-abi";
 import { APTOS_ACCOUNT_ABI } from "./aptos-account-abi";
 import { ACCOUNT_ABI } from "./account-abi";
-import { useState } from "react";
 
 const NETWORK =
   import.meta.env.REACT_APP_NETWORK === "mainnet"
@@ -64,7 +63,7 @@ function App() {
         <img
           onClick={async () => {
             if (!account) {
-              return;
+              return alert("Please connect wallet first.");
             }
             const internalAccountResource = await client
               .useABI(ACCOUNT_ABI)
