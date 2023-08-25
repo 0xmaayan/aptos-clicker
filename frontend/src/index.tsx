@@ -24,7 +24,9 @@ const identityConnectDappId = "f3d4af75-6a1d-47da-b32e-4dd7305ebcb6";
 window.Buffer = BufferPolyFill;
 
 const wallets = [
-  new IdentityConnectWallet(identityConnectDappId),
+  new IdentityConnectWallet(identityConnectDappId, {
+    networkName: NetworkName.Testnet,
+  }),
   new PetraWallet(),
   new FewchaWallet(),
   new MartianWallet(),
