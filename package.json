@@ -11,5 +11,8 @@
   },
   "devDependencies": {
     "aptos-cli": "git+https://github.com/BriungRi/aptos-cli.git"
+  },
+  "dependencies": {
+    "buffer": "^6.0.3"
   }
 }

@@ -12,6 +12,7 @@ import { APTOS_ACCOUNT_ABI } from "./aptos-account-abi";
 import { ACCOUNT_ABI } from "./account-abi";
 import { useEffect } from "react";
 
+const MIN_BALANCE = 1000000;
 const NETWORK =
   import.meta.env.REACT_APP_NETWORK === "mainnet"
     ? Network.MAINNET
@@ -41,36 +42,43 @@ function App() {
   const balance = useQuery(
     ["balance", internalAccount.address()],
     async () => {
-      const balanceResource = await client.useABI(COIN_ABI).view.balance({
-        type_arguments: ["0x1::aptos_coin::AptosCoin"],
-        arguments: [internalAccount.address().toString() as any],
-      });
-      return balanceResource[0];
+      try {
+        const balanceResource = await client.useABI(COIN_ABI).view.balance({
+          type_arguments: ["0x1::aptos_coin::AptosCoin"],
+          arguments: [internalAccount.address().toString() as any],
+        });
+        return balanceResource[0];
+      } catch (e) {
+        return 0;
+      }
     },
     {
       refetchInterval: 5000,
     }
   );
   useEffect(() => {
-    setInterval(async () => {
-      const payload = createEntryPayload(ABI, {
-        function: "click",
-        type_arguments: [],
-        arguments: [],
-      }).rawPayload;
-      await provider.aptosClient.signAndSubmitTransaction(
-        internalAccount,
-        await provider.aptosClient.generateTransaction(
-          internalAccount.address(),
-          payload,
-          {
-            max_gas_amount: "10000",
-            gas_unit_price: "100",
-          }
-        )
-      );
+    const interval = setInterval(async () => {
+      if (balance.data ?? 0 >= MIN_BALANCE) {
+        const payload = createEntryPayload(ABI, {
+          function: "click",
+          type_arguments: [],
+          arguments: [],
+        }).rawPayload;
+        await provider.aptosClient.signAndSubmitTransaction(
+          internalAccount,
+          await provider.aptosClient.generateTransaction(
+            internalAccount.address(),
+            payload,
+            {
+              max_gas_amount: "10000",
+              gas_unit_price: "100",
+            }
+          )
+        );
+      }
+      return () => clearInterval(interval);
     }, 500);
-  });
+  }, [balance.data]);
   return (
     <>
       <div className="navbar">
@@ -107,7 +115,6 @@ function App() {
             }
 
             // Mint if balance is less than 1000000
-            const MIN_BALANCE = 1000000;
             if (!balance.data || balance.data < MIN_BALANCE) {
               const payload = createEntryPayload(COIN_ABI, {
                 function: "transfer",

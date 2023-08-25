@@ -14,16 +14,17 @@ import {
   IdentityConnectWallet,
   IdentityConnectWalletConfig,
 } from "@identity-connect/wallet-adapter-plugin";
+import { Buffer as BufferPolyFill } from "buffer";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 const identityConnectDappId = "f3d4af75-6a1d-47da-b32e-4dd7305ebcb6";
 
+window.Buffer = BufferPolyFill;
+
 const wallets = [
-  new IdentityConnectWallet(identityConnectDappId, {
-    networkName: NetworkName.Testnet,
-  }),
+  new IdentityConnectWallet(identityConnectDappId),
   new PetraWallet(),
   new FewchaWallet(),
   new MartianWallet(),
