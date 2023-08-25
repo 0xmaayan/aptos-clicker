@@ -1,17 +1,29 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { AptosWalletAdapterProvider } from "@aptos-labs/wallet-adapter-react";
+import {
+  AptosWalletAdapterProvider,
+  NetworkName,
+} from "@aptos-labs/wallet-adapter-react";
 import { PetraWallet } from "petra-plugin-wallet-adapter";
 import { FewchaWallet } from "fewcha-plugin-wallet-adapter";
 import { MartianWallet } from "@martianwallet/aptos-wallet-adapter";
 import { PontemWallet } from "@pontem/wallet-adapter-plugin";
 import { RiseWallet } from "@rise-wallet/wallet-adapter";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  IdentityConnectWallet,
+  IdentityConnectWalletConfig,
+} from "@identity-connect/wallet-adapter-plugin";
 
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+const identityConnectDappId = "f3d4af75-6a1d-47da-b32e-4dd7305ebcb6";
+
 const wallets = [
+  new IdentityConnectWallet(identityConnectDappId, {
+    networkName: NetworkName.Testnet,
+  }),
   new PetraWallet(),
   new FewchaWallet(),
   new MartianWallet(),
